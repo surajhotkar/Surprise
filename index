@@ -45,7 +45,7 @@ margin-top:20px;
 width:100px;
 height:100px;
 border:1px solid white;
-background-image:url('YOUR_IMAGE_LINK_HERE');
+background-image:url('photo.jpg');
 background-size:400px 400px;
 cursor:pointer;
 }
@@ -97,7 +97,7 @@ border-radius:20px;
 <h2>You Did It! 💖</h2>
 <p>You make my heart smile in ways I never knew were possible.<br>
 Here's to us and all the adventures ahead.</p>
-<img src="YOUR_IMAGE_LINK_HERE">
+<img src="photo.jpg">
 </div>
 </div>
 
