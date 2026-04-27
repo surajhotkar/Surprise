@@ -12,6 +12,7 @@ body{
     color:white;
     text-align:center;
     min-height:100vh;
+    overflow-x:hidden;
 }
 .page{
     padding-top:40px;
@@ -48,7 +49,7 @@ body{
 .empty{
     background:white;
 }
-#popup{
+#popup, #questionScreen{
     position:fixed;
     top:0;
     left:0;
@@ -64,12 +65,24 @@ body{
     color:black;
     padding:30px;
     border-radius:20px;
-    width:400px;
+    width:420px;
+    position:relative;
 }
 .popup-box img{
     width:250px;
     border-radius:20px;
     margin-top:20px;
+}
+button{
+    padding:12px 20px;
+    margin:10px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:16px;
+}
+#noBtn{
+    position:absolute;
 }
 </style>
 </head>
@@ -95,12 +108,28 @@ body{
             Here's to us and all the adventures ahead.
         </p>
         <img src="./Photo.jpg" alt="Memory">
+        <br><br>
+        <button onclick="showQuestion()">Continue ❤️</button>
+    </div>
+</div>
+
+<div id="questionScreen">
+    <div class="popup-box">
+        <h2>One More Important Question ❤️</h2>
+        <p>
+            On upcoming Friday 1st May,<br>
+            can we chill and watch something romantic on Netflix? 🍿💕
+        </p>
+
+        <button onclick="acceptDate()">Yes ❤️</button>
+        <button id="noBtn" onmouseover="moveNoButton()">No 🙈</button>
     </div>
 </div>
 
 <script>
 let tiles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
 let emptyIndex=15;
+let noTryCount=0;
 
 function startPuzzle(){
     document.getElementById("intro").classList.add("hidden");
@@ -166,6 +195,30 @@ function checkWin(){
         if(tiles[i]!==i+1)return;
     }
     document.getElementById("popup").style.display="flex";
+}
+
+function showQuestion(){
+    document.getElementById("popup").style.display="none";
+    document.getElementById("questionScreen").style.display="flex";
+}
+
+function moveNoButton(){
+    const btn=document.getElementById("noBtn");
+    const maxX=window.innerWidth-150;
+    const maxY=window.innerHeight-100;
+
+    btn.style.left=Math.random()*maxX+"px";
+    btn.style.top=Math.random()*maxY+"px";
+
+    noTryCount++;
+
+    if(noTryCount>=5){
+        alert("Thank you for accepting Friday movie Netflix date with me ❤️ See you on Friday, love you ❤️");
+    }
+}
+
+function acceptDate(){
+    alert("Yayyyy ❤️\nSee you on Friday for our romantic Netflix date 🍿💕\nLove you ❤️");
 }
 </script>
 
