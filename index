@@ -6,99 +6,96 @@
 <title>For Anchal ❤️</title>
 <style>
 body{
-margin:0;
-font-family:Arial,sans-serif;
-background:linear-gradient(135deg,#1d0225,#ff4d8d);
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-overflow:hidden;
-color:white;
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:linear-gradient(135deg,#1d0225,#ff4d8d);
+    color:white;
+    text-align:center;
+    min-height:100vh;
 }
 .page{
-text-align:center;
-width:100%;
+    padding-top:40px;
 }
 .hidden{
-display:none;
+    display:none;
 }
 .heart{
-font-size:100px;
-cursor:pointer;
-animation:beat 1s infinite;
+    font-size:100px;
+    cursor:pointer;
+    animation:beat 1s infinite;
 }
 @keyframes beat{
-0%{transform:scale(1);}
-50%{transform:scale(1.15);}
-100%{transform:scale(1);}
+    0%{transform:scale(1);}
+    50%{transform:scale(1.15);}
+    100%{transform:scale(1);}
 }
 #puzzle{
-display:grid;
-grid-template-columns:repeat(4,100px);
-grid-template-rows:repeat(4,100px);
-gap:2px;
-justify-content:center;
-margin-top:20px;
+    display:grid;
+    grid-template-columns:repeat(4,100px);
+    grid-template-rows:repeat(4,100px);
+    gap:2px;
+    justify-content:center;
+    margin-top:20px;
 }
 .tile{
-width:100px;
-height:100px;
-border:1px solid white;
-background-image:url('photo.jpg');
-background-size:400px 400px;
-cursor:pointer;
+    width:100px;
+    height:100px;
+    border:1px solid white;
+    background-image:url('./photo.jpg');
+    background-size:400px 400px;
+    cursor:pointer;
 }
 .empty{
-background:none;
-background-color:white;
+    background:white;
 }
 #popup{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-display:none;
-justify-content:center;
-align-items:center;
-background:rgba(0,0,0,0.8);
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display:none;
+    justify-content:center;
+    align-items:center;
+    background:rgba(0,0,0,0.8);
 }
 .popup-box{
-background:white;
-color:black;
-padding:30px;
-border-radius:20px;
-text-align:center;
-width:400px;
+    background:white;
+    color:black;
+    padding:30px;
+    border-radius:20px;
+    width:400px;
 }
-img{
-width:250px;
-border-radius:20px;
+.popup-box img{
+    width:250px;
+    border-radius:20px;
+    margin-top:20px;
 }
 </style>
 </head>
 <body>
 
 <div class="page" id="intro">
-<h1>Hey Anchal Kumari ❤️</h1>
-<p>Someone made this just for you</p>
-<div class="heart" onclick="startPuzzle()">❤️</div>
-<p>Tap to heart</p>
+    <h1>Hey Anchal Kumari ❤️</h1>
+    <p>Someone made this just for you</p>
+    <div class="heart" onclick="startPuzzle()">❤️</div>
+    <p>Tap to heart</p>
 </div>
 
 <div class="page hidden" id="game">
-<h1>Solve the Puzzle 💕</h1>
-<div id="puzzle"></div>
+    <h1>Solve the Puzzle 💕</h1>
+    <div id="puzzle"></div>
 </div>
 
 <div id="popup">
-<div class="popup-box">
-<h2>You Did It! 💖</h2>
-<p>You make my heart smile in ways I never knew were possible.<br>
-Here's to us and all the adventures ahead.</p>
-<img src="photo.jpg">
-</div>
+    <div class="popup-box">
+        <h2>You Did It! 💖</h2>
+        <p>
+            You make my heart smile in ways I never knew were possible.<br>
+            Here's to us and all the adventures ahead.
+        </p>
+        <img src="./photo.jpg" alt="Memory">
+    </div>
 </div>
 
 <script>
@@ -106,64 +103,69 @@ let tiles=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0];
 let emptyIndex=15;
 
 function startPuzzle(){
-document.getElementById("intro").classList.add("hidden");
-document.getElementById("game").classList.remove("hidden");
-shuffle();
-render();
+    document.getElementById("intro").classList.add("hidden");
+    document.getElementById("game").classList.remove("hidden");
+    shuffle();
+    render();
 }
 
 function shuffle(){
-for(let i=0;i<100;i++){
-let moves=getValidMoves(emptyIndex);
-let move=moves[Math.floor(Math.random()*moves.length)];
-[tiles[emptyIndex],tiles[move]]=[tiles[move],tiles[emptyIndex]];
-emptyIndex=move;
-}
+    for(let i=0;i<100;i++){
+        let moves=getValidMoves(emptyIndex);
+        let move=moves[Math.floor(Math.random()*moves.length)];
+        [tiles[emptyIndex],tiles[move]]=[tiles[move],tiles[emptyIndex]];
+        emptyIndex=move;
+    }
 }
 
 function getValidMoves(index){
-let moves=[];
-let row=Math.floor(index/4);
-let col=index%4;
-if(row>0)moves.push(index-4);
-if(row<3)moves.push(index+4);
-if(col>0)moves.push(index-1);
-if(col<3)moves.push(index+1);
-return moves;
+    let moves=[];
+    let row=Math.floor(index/4);
+    let col=index%4;
+
+    if(row>0)moves.push(index-4);
+    if(row<3)moves.push(index+4);
+    if(col>0)moves.push(index-1);
+    if(col<3)moves.push(index+1);
+
+    return moves;
 }
 
 function render(){
-const puzzle=document.getElementById("puzzle");
-puzzle.innerHTML="";
-tiles.forEach((tile,index)=>{
-let div=document.createElement("div");
-div.className="tile";
-if(tile===0){
-div.classList.add("empty");
-}else{
-let x=((tile-1)%4)*100;
-let y=Math.floor((tile-1)/4)*100;
-div.style.backgroundPosition=`-${x}px -${y}px`;
-}
-div.onclick=()=>move(index);
-puzzle.appendChild(div);
-});
+    const puzzle=document.getElementById("puzzle");
+    puzzle.innerHTML="";
+
+    tiles.forEach((tile,index)=>{
+        let div=document.createElement("div");
+        div.className="tile";
+
+        if(tile===0){
+            div.classList.add("empty");
+        }else{
+            let x=((tile-1)%4)*100;
+            let y=Math.floor((tile-1)/4)*100;
+            div.style.backgroundPosition=`-${x}px -${y}px`;
+        }
+
+        div.onclick=()=>move(index);
+        puzzle.appendChild(div);
+    });
 }
 
 function move(index){
-if(getValidMoves(emptyIndex).includes(index)){
-[tiles[emptyIndex],tiles[index]]=[tiles[index],tiles[emptyIndex]];
-emptyIndex=index;
-render();
-checkWin();
-}
+    if(getValidMoves(emptyIndex).includes(index)){
+        [tiles[emptyIndex],tiles[index]]=[tiles[index],tiles[emptyIndex]];
+        emptyIndex=index;
+        render();
+        checkWin();
+    }
 }
 
 function checkWin(){
-for(let i=0;i<15;i++){
-if(tiles[i]!==i+1)return;
-}
-document.getElementById("popup").style.display="flex";
+    for(let i=0;i<15;i++){
+        if(tiles[i]!==i+1)return;
+    }
+    document.getElementById("popup").style.display="flex";
 }
 </script>
 
